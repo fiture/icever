@@ -1,4 +1,5 @@
 node_modules/
+public/stylus/
 lib-cov
 *.seed
 *.log
