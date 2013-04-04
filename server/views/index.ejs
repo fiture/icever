@@ -1,0 +1,17 @@
+<% include header %>
+  <h1><a href="/" title="fiture.me"><%= title %></a></h1>
+  <% posts.forEach(function(post, index) { %>
+  <div class="post-item">
+    <h2><a href="/post/<%= post._id %>"><%= post.title %></a></h2>
+    <p class="post-meta">
+      <b>Author:</b> <%= post.author %>,
+      <b>Date:</b> <%= post.date.toDateString() %>
+
+      <% if (post.tag.length) { %>
+      <b>, Tag:</b> <%= post.tag %>.
+      <% } %>
+    </p>
+    <p class="post-content"><%= post.content %></p>
+  </div>
+  <% }); %>
+<% include footer %>

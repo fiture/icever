@@ -8,7 +8,11 @@ var controller = require('../controller/');
 
 var routes = function(app){
   app.get('/', controller.index);
-  app.all('/upload', controller.uploader);
+  app.get('/post/new', controller.newPost);
+  app.get('/post/:postId', controller.postItem);
+  //app.all('/upload', controller.uploader);
+  //app.get('/login', controller.login)
+
 };
 
 module.exports = routes;

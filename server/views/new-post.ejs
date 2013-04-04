@@ -1,0 +1,17 @@
+<% include header %>
+  <h1><a href="/" title="fiture.me"><%= title %></a></h1>
+  <div class="new-post">
+    <h2>New Post:</h2>
+    <form action="/post/new" method="POST">
+      <div>
+        <input type="text" name="title" style="width: 600px; margin-bottom: 15px;" />
+      </div>
+      <div>
+        <textarea rows="10" name="content" style="width: 600px"></textarea>
+      </div>
+      <div>
+        <button type="submit">Create New Post!</button>
+      </div>
+    </form>
+  </div>
+<% include footer %>
