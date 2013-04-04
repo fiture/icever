@@ -1,6 +1,5 @@
 var mongoose = require('mongoose');
-var postSchema = require('./schema').postSchema;
-var postModel = mongoose.model('Post', postSchema);
+var postModel = require('../server/models/post');
 
 mongoose.connect('mongodb://localhost/verybus');
 
