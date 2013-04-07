@@ -9,6 +9,7 @@
     "express": "3.0.6",
     "mongoose": "*",
     "ejs": "*",
-    "stylus": "*"
+    "stylus": "*",
+    "async": "*"
   }
 }

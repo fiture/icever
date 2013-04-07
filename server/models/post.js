@@ -9,7 +9,7 @@ var mongoose = require('mongoose')
 
 PostSchema = new mongoose.Schema({
   title: String,
-  author: String,
+  author: {},
   content: String,
   postname: String,
   tag: Array,

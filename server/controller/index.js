@@ -1,17 +1,46 @@
-var PostModel = require('../models/post');
+var user = require('./user')
+  , async = require('async')
+  , PostModel = require('../models/post');
 
-var index = function(req, res, next){
+exports.index = index;
+exports.postItem = postItem;
+exports.newPost = newPost;
+exports.uploader = uploader;
+exports.deletePost = deletePost;
 
-  PostModel.find().limit(5).exec(function(err, posts){
-    if (err) console.log(error);
-    res.render('index', {'title': 'fiture', posts: posts});  
-  });
-  PostModel.findByPostName('hello-world', function (err, result) {
-    console.log(result);
+exports.signup = user.signup;
+exports.login = user.login;
+exports.logout = user.logout;
+
+function index (req, res, next){
+  var data = {'title': 'fiture', req: req};
+
+  async.waterfall([
+    function getCount (cb) {
+      PostModel.count(function (err, count) {
+        data.count = count; 
+        cb(err, data);
+      });
+    },
+
+    function getPostList (data, cb) {
+      PostModel
+      .find()
+      .sort({date: -1})
+      .limit(10)
+      .exec(function(err, posts){
+        data.posts = posts;
+        cb(err, data);
+      });
+
+    }
+    
+  ], function (err, data) {
+    res.render('index', data);  
   });
 }
 
-var uploader = function(req, res, next){
+function uploader (req, res, next){
   var method = req.method.toLowerCase();
 
 
@@ -24,18 +53,42 @@ var uploader = function(req, res, next){
 
 };
 
-var postItem = function (req, res, next) {
+function postItem (req, res, next) {
   var postId = req.params.postId;
   PostModel.findById(postId).exec(function (errr, post) {
     res.render('post', {'title': 'fiture', post: post});  
   });
 };
 
-var newPost = function (req, res, next) {
-  res.render('new-post', {'title': 'fiture'});
-};
+function newPost (req, res, next) {
+  var method = req.method;
+  switch (method) {
+    case 'GET':
+        res.render('new-post', {'title': 'fiture'});
+    break;
 
-exports.index = index;
-exports.postItem = postItem;
-exports.newPost = newPost;
-exports.uploader = uploader;
+    case 'POST':
+      var post
+        , data = req.body
+        , user = req.session.user;
+
+      data.author = user;
+      post = new PostModel( data );
+
+      post.save(function (err) {
+        if (err) return err;
+        res.redirect('/');
+      });
+    break;
+
+    default:
+    break;
+  }
+}
+
+function deletePost (req, res, next) {
+  var postId = req.params.postId;
+  PostModel.findByIdAndRemove(postId, function (data) {
+    res.redirect('/');
+  });
+}
