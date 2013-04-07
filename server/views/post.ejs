@@ -3,13 +3,14 @@
   <div class="post-item">
     <h2><a href="/post/<%= post._id %>"><%= post.title %></a></h2>
     <p class="post-meta">
-      <b>Author:</b> <%= post.author %>,
+      <b>Author:</b> <%= post.author.nickname %>,
       <b>Date:</b> <%= post.date.toDateString() %>
 
       <% if (post.tag.length) { %>
       <b>, Tag:</b> <%= post.tag %>.
       <% } %>
+      <a href="/post/<%= post._id %>/delete">Delete</a>
     </p>
-    <p class="post-content"><%= post.content %></p>
+    <p class="post-content"><%- post.content %></p>
   </div>
 <% include footer %>

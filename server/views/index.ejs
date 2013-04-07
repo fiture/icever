@@ -1,17 +1,26 @@
 <% include header %>
   <h1><a href="/" title="fiture.me"><%= title %></a></h1>
+  <div class="actions">    
+    <% if (req.session.user) { %>
+    <a href="/logout">Logout</a>
+    <a href="/post/new">New Post</a>
+    <% } else { %>
+    <a href="/signup">Sign Up</a>
+    <a href="/login">Login</a>
+    <% } %>
+  </div>
   <% posts.forEach(function(post, index) { %>
   <div class="post-item">
     <h2><a href="/post/<%= post._id %>"><%= post.title %></a></h2>
     <p class="post-meta">
-      <b>Author:</b> <%= post.author %>,
+      <b>Author:</b> <%= post.author.nickname %>,
       <b>Date:</b> <%= post.date.toDateString() %>
 
       <% if (post.tag.length) { %>
       <b>, Tag:</b> <%= post.tag %>.
       <% } %>
     </p>
-    <p class="post-content"><%= post.content %></p>
+    <p class="post-content"><%- post.content %></p>
   </div>
   <% }); %>
 <% include footer %>
