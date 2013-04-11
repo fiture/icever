@@ -1,5 +1,7 @@
 var user = require('./user')
   , async = require('async')
+  , auth = require('./auth')
+  , utils = require('../utils')
   , PostModel = require('../models/post');
 
 exports.index = index;
@@ -7,6 +9,7 @@ exports.postItem = postItem;
 exports.newPost = newPost;
 exports.uploader = uploader;
 exports.deletePost = deletePost;
+exports.auth = auth;
 
 exports.signup = user.signup;
 exports.login = user.login;
@@ -71,6 +74,10 @@ function newPost (req, res, next) {
       var post
         , data = req.body
         , user = req.session.user;
+
+      /*PostModel.findOne({'postname': utils.randomString()}, function (err, post) {
+        if (post) {}
+      });*/
 
       data.author = user;
       post = new PostModel( data );
