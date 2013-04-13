@@ -12,6 +12,7 @@ var routes = function(app){
   app.post('/post/new', controller.newPost);
   app.get('/post/:postId/delete', controller.deletePost);
   app.get('/post/:postId', controller.postItem);
+  app.get('/post/:postName', controller.postItem);
   app.get('/signup', controller.signup);
   app.post('/signup', controller.signup);
   app.get('/login', controller.login);

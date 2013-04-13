@@ -8,10 +8,11 @@ var mongoose = require('mongoose')
   , PostModel;
 
 PostSchema = new mongoose.Schema({
-  title: String,
-  author: {},
-  content: String,
-  postname: String,
+  title: { type: String, required: true},
+  author: { type: Object, required: true},
+  content: { type: String, required: true},
+  postname: { type: String, required: true, unique: true },
+  category: { type: Object, default: {name: 'uncategory', urlname: 'uncategory'}},
   tag: Array,
   status: {
     type: Boolean,

@@ -57,9 +57,10 @@ function uploader (req, res, next){
 };
 
 function postItem (req, res, next) {
-  var postId = req.params.postId;
-  PostModel.findById(postId).exec(function (errr, post) {
-    res.render('post', {'title': 'fiture', post: post});  
+  var postName = req.params.postName;
+  PostModel.findByPostName(postName, function (err, post) {
+    if (err) return res.send(err);
+    res.render('post', {'title': 'fiture', post: post});
   });
 };
 
@@ -67,7 +68,12 @@ function newPost (req, res, next) {
   var method = req.method;
   switch (method) {
     case 'GET':
-        res.render('new-post', {'title': 'fiture'});
+      var data = {title: 'fiture'}
+        , postname = utils.randomString();
+      
+      data.postname = postname;
+
+      res.render('new-post', data);
     break;
 
     case 'POST':
@@ -75,15 +81,13 @@ function newPost (req, res, next) {
         , data = req.body
         , user = req.session.user;
 
-      /*PostModel.findOne({'postname': utils.randomString()}, function (err, post) {
-        if (post) {}
-      });*/
-
       data.author = user;
+      data.postname = data.postname || utils.randomString();
+
       post = new PostModel( data );
 
       post.save(function (err) {
-        if (err) return err;
+        if (err) return res.send(err);
         res.redirect('/');
       });
     break;

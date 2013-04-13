@@ -11,10 +11,11 @@
   </div>
   <% posts.forEach(function(post, index) { %>
   <div class="post-item">
-    <h2><a href="/post/<%= post._id %>"><%= post.title %></a></h2>
+    <h2><a href="/post/<%= post.postname %>"><%= post.title %></a></h2>
     <p class="post-meta">
       <b>Author:</b> <%= post.author.nickname %>,
-      <b>Date:</b> <%= post.date.toDateString() %>
+      <b>Date:</b> <%= post.date.toDateString() %>,
+      <b>Category:</b> <a href="/category/<%= post.category.name %>/" title="<%= post.category.name %>"><%= post.category.name %></a>
 
       <% if (post.tag.length) { %>
       <b>, Tag:</b> <%= post.tag %>.

@@ -1,7 +1,7 @@
 <% include header %>
   <h1><a href="/" title="fiture.me"><%= title %></a></h1>
   <div class="post-item">
-    <h2><a href="/post/<%= post._id %>"><%= post.title %></a></h2>
+    <h2><a href="/post/<%= post.postname %>"><%= post.title %></a></h2>
     <p class="post-meta">
       <b>Author:</b> <%= post.author.nickname %>,
       <b>Date:</b> <%= post.date.toDateString() %>
