@@ -9,7 +9,7 @@ var controller = require('../controller/');
 var routes = function(app){
   app.get('/', controller.index);
   app.get('/post/new', controller.auth, controller.newPost);
-  app.post('/post/new', controller.newPost);
+  app.post('/post/new', controller.auth, controller.newPost);
   app.get('/post/:postId/delete', controller.deletePost);
   app.get('/post/:postId', controller.postItem);
   app.get('/post/:postName', controller.postItem);

@@ -1,3 +1,25 @@
-<% include header %>
-  <p><%= post %></p>
-<% include footer %>
+extends layout
+
+block content
+  h1: a(href="/", title="fiture.me") #{title}
+  .actions
+    if req.session.user
+      a(href="/logout") Logout
+      a(href="/post/new") New Post
+    else
+      a(href="/signup") Sign Up 
+      a(href="/login") Login
+  for post in posts
+    .post-item
+      h2: a(href="/post/#{post.postname}") #{post.title}
+      p.post-meta
+        span Author: #{post.author.nickname} 
+        span Date: #{post.date.toDateString()} 
+        span
+          | Category:
+          a(href="/category/#{post.category.name}/") #{post.category.name} 
+        unless post.tag.length
+          span Tag: #{post.tag}
+    .post-content #{post.content}
+    
+  include footer

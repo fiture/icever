@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  h1: a(href="/", title="fiture.me") #{title}
+  .signup
+    h2 Signup now
+    form(action="/signup", method="POST")
+      .form-control-group
+        label.form-control-label(for="email") Email:
+        input#email(type="email", name="email")
+      .form-control-group
+        label.form-control-label(for="nickname") Nickname
+        input#nickname(type="text", name="nickname")
+      .form-control-group
+        label.form-control-label(for="password") Password:
+        input#password(type="password", name="password")
+      .form-control-group
+        label.form-control-label(for="repeat-password") Repeat  password:
+        input#repeat-password(type="password", name="repeatPassword")
+      .form-control-group
+        button(type="submit") Sign Up Now!
+        if locals.error
+          p #{error} 
+
+  include footer
