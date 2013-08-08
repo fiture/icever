@@ -60,7 +60,7 @@ function postItem (req, res, next) {
   var postName = req.params.postName;
   PostModel.findByPostName(postName, function (err, post) {
     if (err) return res.send(err);
-    res.render('post', {'title': 'fiture', post: post});
+    res.render('post', {'title': 'fiture', post: post, req: req});
   });
 };
 

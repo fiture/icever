@@ -20,6 +20,6 @@ block content
           a(href="/category/#{post.category.name}/") #{post.category.name} 
         unless post.tag.length
           span Tag: #{post.tag}
-    .post-content #{post.content}
+    .post-content!= post.content
     
   include footer

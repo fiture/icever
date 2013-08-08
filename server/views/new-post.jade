@@ -1,0 +1,22 @@
+extends layout
+block content
+  h1: a(href="/", title="fiture.me") #{title}
+  .new-post
+    h2 New Post:
+    form(action="/post/new", method="POST")
+      .form-control-group
+        label.form-control-label(for="title") Title:
+        input#title(type="text", name="title")
+      .form-control-group
+        label.form-control-label(for="postname") Postname:
+        input#postname(type="text", name="postname", value="#{postname}")
+      .form-control-group
+        label.form-control-label(for="content") Content:
+        textarea#content(rows="10", name="content")
+      .form-control-group
+        label.form-control-label(for="tag") Tags(split with comma):
+        input#tag(type="text", name="tag")
+      .form-control-group
+        button(type="submit") Create New Post!
+
+  include footer

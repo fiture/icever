@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  h1: a(href="/", title="fiture.me") #{title}
+  .post-item
+    h2: a(href="/post/#{post.postname}") #{post.title}
+    p.post-meta
+      span Author: #{post.author.nickname} 
+      span Date: #{post.date.toDateString()} 
+      span
+        | Category:
+        a(href="/category/#{post.category.name}/") #{post.category.name} 
+      if  post.tag.length
+        span Tag: #{post.tag}
+      if req.session.user
+        a(href="/post/#{post._id}/delete") Delete
+  .post-content!= post.content
+    
+  include footer
